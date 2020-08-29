@@ -6,6 +6,7 @@ import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageInputForm from './components/ImageInputForm/ImageInputForm';
 import Rank from './components/Rank/Rank';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 
 const app = new Clarifai.App({
   apiKey: "850b253629c04f92b71132926ed9e0cb",
@@ -29,20 +30,21 @@ class App extends Component {
     super();
     this.state = {
       input: '',
+      imageUrl: ''
     }
   }
 
   onInputChange = (event) => {
-    console.log(event.target.value)
+    this.setState({input: event.target.value})
   }
 
   onButtonSubmit = () => {
-    console.log('click')
-    app.models.predict(Clarifai.GENERAL_MODEL, 'https://samples.clarifai.com/metro-north.jpg')
+    this.setState({imageUrl: this.state.input})
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
         .then(response => {
-          console.log(response);
+          console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
         })
-        .catch(err => {
+        .catch(err => { 
           console.log(err);
         });
   }
@@ -56,7 +58,7 @@ class App extends Component {
         <Logo />
         <Rank />
         <ImageInputForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit} />
-        {/* <FaceRecognition /> */}
+        <FaceRecognition imageUrl = {this.state.imageUrl} />
       </div>
     );
   } 
