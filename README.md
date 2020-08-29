@@ -1,6 +1,7 @@
 ## Libraries
 Tachyons for CSS
 Tilt for rendering the logo
+Particle.js for background
 
 
 

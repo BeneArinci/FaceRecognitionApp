@@ -7,6 +7,16 @@
   justify-content: 'center';
 }
 
+.particles {
+  position:fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  /* this thing above is used to position our particles in the background. -1 means that it must stay at the lower level of anything else in the page*/
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
