@@ -40,6 +40,7 @@ class App extends Component {
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
+    console.log(height, width)
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
@@ -49,6 +50,7 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
+    console.log(box)
     this.setState({box: box})
   }
   onInputChange = (event) => {
@@ -75,7 +77,7 @@ class App extends Component {
         <Logo />
         <Rank />
         <ImageInputForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit} />
-        <FaceRecognition imageUrl = {this.state.imageUrl} />
+        <FaceRecognition box = {this.state.box} imageUrl = {this.state.imageUrl} />
       </div>
     );
   } 
