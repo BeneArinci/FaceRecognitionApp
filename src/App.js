@@ -32,7 +32,8 @@ class App extends Component {
     this.state = {
       input: '',
       imageUrl: '',
-      box: {}
+      box: {},
+      route: 'signin'
     }
   }
 
@@ -74,12 +75,16 @@ class App extends Component {
       <div className="App">
         <Particles className='particles'
                 params={particlesOptions} />
-        <SignIn />
         <Navigation />
-        <Logo />
+        
+        
+        { this.state.route === 'signin' 
+        ? <SignIn />
+        : <div> <Logo />
         <Rank />
         <ImageInputForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit} />
         <FaceRecognition box = {this.state.box} imageUrl = {this.state.imageUrl} />
+        </div>}
       </div>
     );
   } 
