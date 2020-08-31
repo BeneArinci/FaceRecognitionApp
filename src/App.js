@@ -44,7 +44,6 @@ class App extends Component {
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
-    console.log(height, width)
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
@@ -54,11 +53,9 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
-    console.log(box)
     this.setState({box: box})
   }
   onInputChange = (event) => {
-    console.log(event)
     this.setState({input: event.target.value})
   }
 
@@ -67,7 +64,6 @@ class App extends Component {
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
         .then(response => {
           this.displayFaceBox(this.calculateFaceLocation(response))
-          console.log(response.outputs[0].data.regions[0].region_info.bounding_box);
         })
         .catch(err => console.log(err));
   }
@@ -78,24 +74,23 @@ class App extends Component {
     } else if (route === 'home') {
       this.setState({isSignedIn: true})}
     this.setState({route: route})
-
-    console.log(this.state.isSignedIn)
   }
 
   render() {
+    const { route, isSignedIn, imageUrl, box } = this.state;
     return (
       <div className="App">
         <Particles className='particles'
-                params={particlesOptions} />
-        <Navigation onRouteChange = {this.onRouteChange} isSignedIn = {this.state.isSignedIn}/>
-        
-        { this.state.route === 'home' 
+          params={particlesOptions} 
+        />
+        <Navigation onRouteChange = {this.onRouteChange} isSignedIn = {isSignedIn}/>
+        { route === 'home' 
         ? <div> <Logo />
         <Rank />
         <ImageInputForm onInputChange = {this.onInputChange} onButtonSubmit = {this.onButtonSubmit} />
-        <FaceRecognition box = {this.state.box} imageUrl = {this.state.imageUrl} />
+        <FaceRecognition box = {box} imageUrl = {imageUrl} />
         </div>
-        : (this.state.route === 'signin') 
+        : (route === 'signin') 
         ? <SignIn onRouteChange = {this.onRouteChange}/>
         : <Register onRouteChange = {this.onRouteChange}/>}
       </div>
