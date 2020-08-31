@@ -7,6 +7,7 @@ import Logo from './components/Logo/Logo';
 import ImageInputForm from './components/ImageInputForm/ImageInputForm';
 import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import SignIn from './components/SignIn/SignIn';
 
 const app = new Clarifai.App({
   apiKey: "850b253629c04f92b71132926ed9e0cb",
@@ -73,6 +74,7 @@ class App extends Component {
       <div className="App">
         <Particles className='particles'
                 params={particlesOptions} />
+        <SignIn />
         <Navigation />
         <Logo />
         <Rank />
